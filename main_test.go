@@ -1,6 +1,10 @@
 package main
 
-import "testing"
+import (
+	"fmt"
+	"regexp"
+	"testing"
+)
 
 func TestMatch(t *testing.T) {
 	data := map[[2]string]bool{
@@ -94,5 +98,47 @@ func TestMatch(t *testing.T) {
 		if res != expected {
 			t.Errorf("Regexp : %s Target: %s Expected: %v Result: %v", in[0], in[1], expected, res)
 		}
+	}
+}
+
+func BenchmarkMatchComplex(b *testing.B) {
+	reg := "^a.*b$"
+	target := "axxxbyyyz"
+	for i := 0; i < b.N; i++ {
+		match(reg, target)
+	}
+}
+
+func BenchmarkRegexPackageComplex(b *testing.B) {
+	reg := "^a.*b$"
+	re, err := regexp.Compile(reg)
+	if err != nil {
+		fmt.Println("Error compiling regex:", err)
+		return
+	}
+	target := "axxxbyyyz"
+	for i := 0; i < b.N; i++ {
+		re.MatchString(target)
+	}
+}
+
+func BenchmarkMatchLargeInput(b *testing.B) {
+	reg := "^a.*b$"
+	target := "a" + string(make([]byte, 10000)) + "b"
+	for i := 0; i < b.N; i++ {
+		match(reg, target)
+	}
+}
+
+func BenchmarkRegexPackageLargeInput(b *testing.B) {
+	reg := "^a.*b$"
+	re, err := regexp.Compile(reg)
+	if err != nil {
+		fmt.Println("Error compiling regex:", err)
+		return
+	}
+	target := "axxxbyyyz"
+	for i := 0; i < b.N; i++ {
+		re.MatchString(target)
 	}
 }
