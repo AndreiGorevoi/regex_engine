@@ -1,5 +1,3 @@
-Sure, here's a beautiful README file in Markdown format for your project:
-
 # Simple Regex Matcher
 
 This is a simple regex matcher implementation in Go, created for educational purposes. It supports basic regex patterns like `^`, `$`, `?`, `*`, and `+`.
