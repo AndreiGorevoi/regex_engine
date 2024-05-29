@@ -17,16 +17,12 @@ This will match the regex pattern `a*b` against the target string `aaaab` and pr
 The project includes benchmarks to compare the performance of the custom regex matcher against Go's built-in `regexp` package. Here are the benchmark results:
 
 ```
-BenchmarkMatchComplex
 BenchmarkMatchComplex-8 33666723 35.43 ns/op
 
-BenchmarkRegexPackageComplex
 BenchmarkRegexPackageComplex-8 7817226 152.6 ns/op
 
-BenchmarkMatchLargeInput
 BenchmarkMatchLargeInput-8 37611 31343 ns/op
 
-BenchmarkRegexPackageLargeInput
 BenchmarkRegexPackageLargeInput-8 7846782 155.2 ns/op
 ```
 
